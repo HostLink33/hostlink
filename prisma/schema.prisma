@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  password     String
+  prenom       String
+  nom          String
+  telephone    String?
+  role         Role          @default(PROPRIETAIRE)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  proprietaire Proprietaire?
+  concierge    Concierge?
+}
+
+enum Role {
+  PROPRIETAIRE
+  CONCIERGE
+  ADMIN
+}
+
+model Proprietaire {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  biens     Bien[]
+  createdAt DateTime @default(now())
+}
+
+model Concierge {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id])
+  nom        String
+  zone       String
+  experience String
+  siret      String?
+  score      Float    @default(0)
+  occupation Float    @default(0)
+  reponse    String?
+  nbBiens    Int      @default(0)
+  verifie    Boolean  @default(false)
+  biens      Bien[]
+  avis       Avis[]
+  createdAt  DateTime @default(now())
+}
+
+model Bien {
+  id             String        @id @default(cuid())
+  nom            String
+  type           String
+  ville          String
+  superficie     Float
+  statut         StatutBien    @default(ACTIF)
+  proprietaireId String
+  proprietaire   Proprietaire  @relation(fields: [proprietaireId], references: [id])
+  conciergeId    String?
+  concierge      Concierge?    @relation(fields: [conciergeId], references: [id])
+  wallet         Wallet?
+  transactions   Transaction[]
+  createdAt      DateTime      @default(now())
+}
+
+enum StatutBien {
+  ACTIF
+  INACTIF
+  ALERTE
+}
+
+model Wallet {
+  id        String   @id @default(cuid())
+  bienId    String   @unique
+  bien      Bien     @relation(fields: [bienId], references: [id])
+  iban      String   @unique
+  solde     Float    @default(0)
+  frequence String   @default("MENSUEL")
+  createdAt DateTime @default(now())
+}
+
+model Transaction {
+  id                  String   @id @default(cuid())
+  bienId              String
+  bien                Bien     @relation(fields: [bienId], references: [id])
+  montantBrut         Float
+  commissionConcierge Float
+  commissionHostlink  Float
+  montantNet          Float
+  statut              String   @default("verse")
+  createdAt           DateTime @default(now())
+}
+
+model Avis {
+  id          String    @id @default(cuid())
+  conciergeId String
+  concierge   Concierge @relation(fields: [conciergeId], references: [id])
+  auteur      String
+  note        Int
+  commentaire String
+  createdAt   DateTime  @default(now())
+}
