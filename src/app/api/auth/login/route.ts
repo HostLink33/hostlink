@@ -1,12 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+export const dynamic = 'force-dynamic';
 
-const JWT_SECRET = process.env.JWT_SECRET || "hostlink-secret-key-2025";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
+    const { prisma } = await import("@/lib/prisma");
+    const bcrypt = await import("bcryptjs");
+    const jwt = await import("jsonwebtoken");
+
+    const JWT_SECRET = process.env.JWT_SECRET || "hostlink-secret-key-2025";
     const { email, password } = await req.json();
 
     if (!email || !password) {
@@ -18,12 +20,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Email ou mot de passe incorrect." }, { status: 401 });
     }
 
-    const valid = await bcrypt.compare(password, user.password);
+    const valid = await bcrypt.default.compare(password, user.password);
     if (!valid) {
       return NextResponse.json({ error: "Email ou mot de passe incorrect." }, { status: 401 });
     }
 
-    const token = jwt.sign(
+    const token = jwt.default.sign(
       { userId: user.id, email: user.email, role: user.role },
       JWT_SECRET,
       { expiresIn: "7d" }
