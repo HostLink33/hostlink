@@ -49,14 +49,14 @@ export default function Home() {
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "1.4rem 4rem",
+        padding: "1rem 1.5rem",
         background: "rgba(13,13,15,0.9)", backdropFilter: "blur(20px)",
         borderBottom: scrolled ? "1px solid rgba(201,168,76,0.2)" : "1px solid rgba(255,255,255,0.07)",
         animation: "fadeDown 0.8s ease both", transition: "border-color 0.3s",
         fontFamily: "var(--ff-body)"
       }}>
         <span style={{ fontFamily: "var(--ff-display)", fontSize: "1.5rem", fontWeight: 600, color: "var(--gold2)", letterSpacing: "0.04em" }}>HostLink</span>
-        <div style={{ display: "flex", gap: "2.5rem" }}>
+        <div style={{ display: "flex", gap: "2.5rem", "@media (max-width: 768px)": { display: "none" } }}>
           {["Comment ça marche", "Profils", "Fonctionnalités", "Paiements"].map((l, i) => (
             <a key={i} href={`#section${i}`} style={{ fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted)", textDecoration: "none" }}>{l}</a>
           ))}
