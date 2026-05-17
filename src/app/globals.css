@@ -84,3 +84,28 @@ body {
     display: none !important;
   }
 }
+
+@media (max-width: 768px) {
+  /* Grilles → 1 colonne */
+  div[style*="grid-template-columns: 1fr 1fr"],
+  div[style*="grid-template-columns: repeat(2,1fr)"],
+  div[style*="grid-template-columns: repeat(3,1fr)"],
+  div[style*="grid-template-columns: repeat(4,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Stats row */
+  div[style*="gap: 4rem"] {
+    gap: 1.5rem !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  /* Footer */
+  footer {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 2rem 1.25rem !important;
+    gap: 1rem !important;
+  }
+}
