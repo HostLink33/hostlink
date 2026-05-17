@@ -75,3 +75,12 @@ body {
     padding: 1rem 1.25rem !important;
   }
 }
+
+@media (max-width: 768px) {
+  nav > div:nth-child(2) {
+    display: none !important;
+  }
+  nav > a:last-child {
+    display: none !important;
+  }
+}
