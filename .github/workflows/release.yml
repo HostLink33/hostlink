@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: HostLink ${{ github.ref }}
+          body: |
+            ## HostLink Release ${{ github.ref }}
+            
+            ### Changements
+            - Voir les commits pour le détail
+            
+            ### Site en ligne
+            https://hostlink-eta.vercel.app
+          draft: false
+          prerelease: false
