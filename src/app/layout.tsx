@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AuthProvider } from "@/lib/auth-context";
 
 export const metadata: Metadata = {
-  title: "HostLink — Gérez votre bien, librement",
-  description: "L'infrastructure complète de délégation locative. Matching IA, scoring concierges, paiements centralisés.",
-  viewport: "width=device-width, initial-scale=1",
+  title: "HostLink — Gerez votre bien, librement",
+  description: "L infrastructure complete de delegation locative.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </body>
     </html>
   );
 }
