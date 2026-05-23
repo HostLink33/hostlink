@@ -42,8 +42,8 @@ export default function Inscription() {
 
   const Field = ({ label, k, type = "text", placeholder = "" }: { label: string; k: string; type?: string; placeholder?: string }) => (
     <div><label style={labelStyle}>{label}</label><input type={type} value={form[k as keyof typeof form]} onChange={e => update(k, e.target.value)} placeholder={placeholder} style={inputStyle}
-      onFocus={e => e.currentTarget.style.borderColor="#0866FF"}
-      onBlur={e => e.currentTarget.style.borderColor="#E5E7EB"}
+      
+      
     /></div>
   );
 

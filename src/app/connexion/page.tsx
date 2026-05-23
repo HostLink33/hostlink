@@ -92,8 +92,8 @@ export default function Connexion() {
                 <div>
                   <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "#374151", marginBottom: "0.4rem" }}>Email</label>
                   <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="jean@email.com" style={inputStyle}
-                    onFocus={e => e.currentTarget.style.borderColor="#0866FF"}
-                    onBlur={e => e.currentTarget.style.borderColor="#E5E7EB"}
+                    
+                    
                   />
                 </div>
                 <div>
@@ -102,8 +102,8 @@ export default function Connexion() {
                     <button onClick={() => setMode("reset")} style={{ fontSize: "0.78rem", color: "#0866FF", background: "none", border: "none", cursor: "pointer", fontFamily: "Inter, sans-serif" }}>Mot de passe oublie ?</button>
                   </div>
                   <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" style={inputStyle}
-                    onFocus={e => e.currentTarget.style.borderColor="#0866FF"}
-                    onBlur={e => e.currentTarget.style.borderColor="#E5E7EB"}
+                    
+                    
                     onKeyDown={e => e.key==="Enter" && handleLogin()}
                   />
                 </div>
