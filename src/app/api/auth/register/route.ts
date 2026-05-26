@@ -1,21 +1,25 @@
 export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-
-const JWT_SECRET = process.env.JWT_SECRET || "hostlink-secret-key-2025";
 
 export async function POST(req: NextRequest) {
   try {
+    const { PrismaClient } = await import("@prisma/client");
+    const bcrypt = await import("bcryptjs");
+    const jwt = await import("jsonwebtoken");
+    
+    const prisma = new PrismaClient();
+    const JWT_SECRET = process.env.JWT_SECRET || "hostlink-secret-key-2025";
+
     const { email, password, prenom, nom, telephone, role, typeBien, ville, superficie, zone, experience, siret } = await req.json();
 
-    if (!email || !password || !prenom || !nom) return NextResponse.json({ error: "Champs obligatoires manquants." }, { status: 400 });
+    if (!email || !password || !prenom || !nom) {
+      return NextResponse.json({ error: "Champs obligatoires manquants." }, { status: 400 });
+    }
 
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) return NextResponse.json({ error: "Email deja utilise." }, { status: 400 });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.default.hash(password, 10);
     const user = await prisma.user.create({
       data: { email, password: hashedPassword, prenom, nom, telephone, role: role === "concierge" ? "CONCIERGE" : "PROPRIETAIRE" },
     });
@@ -36,7 +40,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const token = jwt.sign({ userId: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "7d" });
+    const token = jwt.default.sign({ userId: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "7d" });
 
     const response = NextResponse.json({ success: true, user: { id: user.id, email: user.email, prenom: user.prenom, nom: user.nom, role: user.role } }, { status: 201 });
 
@@ -48,9 +52,10 @@ export async function POST(req: NextRequest) {
       sameSite: "lax",
     });
 
+    await prisma.$disconnect();
     return response;
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Erreur serveur." }, { status: 500 });
+    console.error("REGISTER ERROR:", error);
+    return NextResponse.json({ error: "Erreur serveur.", details: String(error) }, { status: 500 });
   }
 }
