@@ -61,11 +61,10 @@ export default function Home() {
             <a key={i} href={`#section${i}`} style={{ fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted)", textDecoration: "none" }}>{l}</a>
           ))}
         </div>
-        <a href="/inscription" style={{
-          fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase",
-          padding: "0.6rem 1.6rem", border: "1px solid var(--gold)",
-          color: "var(--gold)", textDecoration: "none", fontFamily: "var(--ff-body)"
-        }}>Rejoindre la liste</a>
+        <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+          <a href="/connexion" style={{ fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", padding: "0.6rem 1.2rem", color: "var(--muted)", textDecoration: "none", fontFamily: "var(--ff-body)" }}>Se connecter</a>
+          <a href="/inscription" style={{ fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", padding: "0.6rem 1.4rem", background: "var(--gold)", color: "var(--ink)", textDecoration: "none", fontFamily: "var(--ff-body)" }}>S'inscrire</a>
+        </div>
       </nav>
 
       {/* HERO */}
