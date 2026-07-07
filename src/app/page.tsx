@@ -61,7 +61,7 @@ export default function Home() {
             <a key={i} href={`#section${i}`} style={{ fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted)", textDecoration: "none" }}>{l}</a>
           ))}
         </div>
-        <a href="#waitlist" style={{
+        <a href="/inscription" style={{
           fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase",
           padding: "0.6rem 1.6rem", border: "1px solid var(--gold)",
           color: "var(--gold)", textDecoration: "none", fontFamily: "var(--ff-body)"
@@ -99,10 +99,10 @@ export default function Home() {
         </p>
 
         <div style={{ display: "flex", gap: "1rem", alignItems: "center", justifyContent: "center", flexWrap: "wrap", animation: "fadeUp 1s ease 0.65s both", position: "relative", zIndex: 1 }}>
-          <a href="#waitlist" style={{ padding: "1rem 2.5rem", background: "var(--gold)", color: "var(--ink)", fontFamily: "var(--ff-body)", fontWeight: 500, fontSize: "0.85rem", letterSpacing: "0.08em", textTransform: "uppercase", textDecoration: "none", display: "inline-block" }}>
+          <a href="/inscription" style={{ padding: "1rem 2.5rem", background: "var(--gold)", color: "var(--ink)", fontFamily: "var(--ff-body)", fontWeight: 500, fontSize: "0.85rem", letterSpacing: "0.08em", textTransform: "uppercase", textDecoration: "none", display: "inline-block" }}>
             Rejoindre la liste d&apos;attente
           </a>
-          <a href="#section0" style={{ padding: "1rem 2.5rem", border: "1px solid rgba(255,255,255,0.12)", color: "var(--text)", fontFamily: "var(--ff-body)", fontWeight: 300, fontSize: "0.85rem", letterSpacing: "0.08em", textTransform: "uppercase", textDecoration: "none", display: "inline-block" }}>
+          <a href="/connexion" style={{ padding: "1rem 2.5rem", border: "1px solid rgba(255,255,255,0.12)", color: "var(--text)", fontFamily: "var(--ff-body)", fontWeight: 300, fontSize: "0.85rem", letterSpacing: "0.08em", textTransform: "uppercase", textDecoration: "none", display: "inline-block" }}>
             Découvrir →
           </a>
         </div>
